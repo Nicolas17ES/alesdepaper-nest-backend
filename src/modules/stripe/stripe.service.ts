@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/entities/products.entity';
 import Stripe from 'stripe'; // Import Stripe
 import { PaymentIntentDto } from '../../dto/payment-intent.dto';
+import { calculateNumberFrequencies, findProductsByIds, calculateTotalPrice } from './stripe.utils'; // Import the utils
 
 export class PaymentIntentCreationException extends HttpException {
     constructor(message: string) {
@@ -54,13 +55,13 @@ export class StripeService {
             throw new PaymentIntentCreationException('PaymentIntentDto must include at least one ID.');
         }
 
-        const countOccurrences = this.calculateNumberFrequencies(ids);
+        const countOccurrences = calculateNumberFrequencies(ids);
 
         try {
 
-            const productsArray = await this.findProductsByIds(ids);
+            const productsArray = await findProductsByIds(this.productRepository, ids);
 
-            const totalPrice = this.calculateTotalPrice(productsArray, countOccurrences);
+            const totalPrice = calculateTotalPrice(productsArray, countOccurrences);
 
             let finalPrice;
 
@@ -87,42 +88,5 @@ export class StripeService {
         }
     }
 
-    private calculateNumberFrequencies(ids: number[]): Record<number, number> {
-        return ids.reduce((acc, val) => {
-            acc[val] = (acc[val] || 0) + 1;
-            return acc;
-        }, {} as Record<number, number>);
-    }
-
-    private async findProductsByIds(ids: number[]): Promise<Product[]> {
-        // Ensure ids is not empty to avoid SQL errors
-        if (ids.length === 0) {
-            throw new NotFoundException('Productsnot found');
-        }
-
-        // Use QueryBuilder to build the query
-        const products = await this.productRepository
-            .createQueryBuilder('product')
-            .where('product.id IN (:...ids)', { ids })
-            .getMany();
-
-        return products;
-    }
-
-    private calculateTotalPrice(productsArray: Product[], countOccurrences: Record<number, number>): number {
-
-        return productsArray.reduce((acc, product) => {
-            if (countOccurrences[product.id] > 1) {
-
-                acc += product.precio * countOccurrences[product.id];
-
-            } else {
-
-                acc += product.precio;
-
-            }
-
-            return acc; 
-        }, 0)
-    }
+    
 }

@@ -12,7 +12,7 @@ import { AdminPanelOrder, CreateOrderResponse, MessageResponse } from 'src/types
 import { OrdersRepository } from './orders.repository';
 import { OrderItemsRepository } from './order-items.repository';
 import { ChangeStatusDto } from 'src/dto/change-status.dto';
-import { calculateUniqueCartItems, calculateTotalPrice, createOrderDataDto, createMailDataDto } from './orders-utils';
+import { calculateUniqueCartItems, calculateTotalPrice, createOrderDataDto, createMailDataDto } from './orders.utils';
 
 @Injectable()
 export class OrdersService {
