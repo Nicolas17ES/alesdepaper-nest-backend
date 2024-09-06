@@ -45,7 +45,7 @@ export class StripeService {
         return { publishableKey };
     }
 
-    // Example method to create a payment intent
+    // Create a payment intent
     async createPaymentIntent(paymentIntentDto: PaymentIntentDto): Promise<{ clientSecret: string }> {
 
         const {ids, fees} = paymentIntentDto;
