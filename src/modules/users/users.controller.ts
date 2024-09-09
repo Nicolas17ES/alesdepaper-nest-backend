@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Get, UsePipes, ValidationPipe, UseGuards, Request, Res } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
-import { User } from 'src/entities/user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { User } from '../../entities/user.entity';
 import { CreateUserDto } from '../../dto/CreateUser.dto';
 import { LoginUserDto } from '../../dto/LoginUser.dto';
 import { JwtPayload } from '../../types/types';

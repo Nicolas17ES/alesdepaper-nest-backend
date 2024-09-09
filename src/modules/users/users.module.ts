@@ -5,9 +5,9 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
-import { AuthService } from 'src/modules/auth/auth.service';
-import { RefreshToken } from 'src/entities/refresh-token.entity';
+import { User } from '../../entities/user.entity';
+import { AuthService } from '../../modules/auth/auth.service';
+import { RefreshToken } from '../../entities/refresh-token.entity';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { RefreshToken } from 'src/entities/refresh-token.entity';
         },
       }),
     }),
-    TypeOrmModule.forFeature([User, RefreshToken]), // Import TypeOrmModule and register the User entity
+    TypeOrmModule.forFeature([User, RefreshToken]), 
   ],
   controllers: [UsersController],
   providers: [UsersService, AuthService],

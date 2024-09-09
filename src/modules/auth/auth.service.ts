@@ -1,11 +1,11 @@
 import { Injectable, UnauthorizedException, InternalServerErrorException, Logger } from '@nestjs/common';
-import { User } from 'src/entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { RefreshToken } from 'src/entities/refresh-token.entity'; // Import your refresh token entity
+import { RefreshToken } from '../../entities/refresh-token.entity'; // Import your refresh token entity
 import { Request } from 'express';
 import { JwtPayload } from 'src/types/types';
 

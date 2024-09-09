@@ -7,8 +7,8 @@ import { JwtStrategy } from './jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
-import { User } from 'src/entities/user.entity';
-import { RefreshToken } from 'src/entities/refresh-token.entity';
+import { User } from '../../entities/user.entity';
+import { RefreshToken } from '../../entities/refresh-token.entity';
 import { LocalStrategy } from './local.strategy';
 
 
